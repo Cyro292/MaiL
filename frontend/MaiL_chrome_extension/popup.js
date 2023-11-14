@@ -1,25 +1,29 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const emailDraftTextarea = document.getElementById('emailDraft');
-    const getSuggestionsButton = document.getElementById('getSuggestions');
-    const suggestionResults = document.getElementById('suggestionResults');
-  
-    getSuggestionsButton.addEventListener('click', async () => {
-      const emailDraft = emailDraftTextarea.value;
-  
-      // Send the email draft to your backend API and handle the response here
-      // Use fetch() or another AJAX library to make the API request
-  
-      // For example:
-      // const response = await fetch('https://your-api-url.com/suggest', {
-      //   method: 'POST',
-      //   body: JSON.stringify({ emailDraft }),
-      //   headers: { 'Content-Type': 'application/json' },
-      // });
-  
-      // const suggestions = await response.json();
-  
-      // Display the suggestions in the suggestionResults element
-      // suggestionResults.innerHTML = suggestions;
-    });
+// popup.js
+const button = document.getElementById('test_button');
+
+
+button.addEventListener('click', function () {
+  const statusElement = document.getElementById('status');
+  const contentElement = document.getElementById('content'); // Element to display the content of the div
+  const lechat = document.getElementById('lechat');
+
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    // Check if the current tab's URL is Gmail
+    if (tabs[0].url.includes('mail.google.com')) {
+      statusElement.textContent = 'Gmail is detected!';
+      // Send message to content script to get the content of the div with id 'rf'
+      chrome.tabs.sendMessage(tabs[0].id, { action: "getDivContent" }, function(response) {
+        if (response && response.divContent) {
+          // Display the content in your popup
+          contentElement.textContent = response.divContent;
+          lechat.textContent = response.text;
+        } else {
+          contentElement.textContent = 'No content found or an error occurred.';
+        }
+      });
+    } else {
+      statusElement.textContent = 'Gmail is not detected.';
+      contentElement.textContent = 'This extension works only on Gmail.';
+    }
   });
-  
+});

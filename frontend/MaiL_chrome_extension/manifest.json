@@ -3,24 +3,24 @@
     "name": "Email Suggestion Extension",
     "version": "1.0",
     "description": "Get email composition suggestions.",
-    "permissions": ["activeTab"],
+    "permissions": ["activeTab", "scripting", "storage", "tabs"],
     "action": {
       "default_popup": "popup.html"
-      
-    },
-
-    "browser_action": {
-      "default_popup": "popup.html"
-    },
-    "background": {
-      "service_worker": "background.js"
     },
     "content_scripts": [
       {
-        "matches": ["<all_urls>"],
-        "js": ["content.js"]
+        "matches": ["*://mail.google.com/*"],
+        "js": ["content.js"],
+        "run_at": "document_idle"
       }
-    ]    
+    ],
+    "host_permissions": [
+      "https://*/*",
+      "http://*/*"
+    ],
+    "background": {
+      "service_worker": "background.js"
+    }
     
-  }
+}
   

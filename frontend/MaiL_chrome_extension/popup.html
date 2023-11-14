@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Email Suggestion Extension</title>
+  <title>Gmail Draft Reader</title>
   <style>
-    /* Add CSS styles for your extension UI here */
+    /* Add CSS styles for your extension's popup here */
+    #status {
+      color: blue;
+    }
   </style>
 </head>
 <body>
-  <textarea id="emailDraft" rows="6" cols="40"></textarea><br>
-  <button id="getSuggestions">Get Suggestions</button>
-  <div id="suggestionResults"></div>
-
+  <div id="status">Checking Gmail status...</div>
+  <div id="content">asdasdasdasdasdame</div>
+  <!-- <div id="lechat">asdasdasdasdasdame</div> -->
+  <div id="aiResponse">AI response will appear here</div>
+  <div id="draft">Draft text will appear here.</div>
+  <button id="test_button">test</button>
   <script src="popup.js"></script>
 </body>
 </html>

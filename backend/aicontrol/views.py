@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 
 # Create your views here.
 
@@ -15,6 +15,14 @@ def openai(request):
     """
     Test the AI response.
     """
-    input_text = "Your input text goes here"
-    response = aicontrol.openai.gpt.ai_response(input_text)
+
+    if request.method == "POST":
+        input_text = request.POST.get("input_text", None)
+
+        response = aicontrol.openai.gpt.ai_response(input_text)
+        return HttpResponse(response)
+
+    response = aicontrol.openai.gpt.ai_response(
+        "Give me a nice joke, my life is so hard"
+    )
     return HttpResponse(response)
