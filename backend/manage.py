@@ -6,7 +6,7 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "backend.settings")
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
@@ -18,5 +18,17 @@ def main():
     execute_from_command_line(sys.argv)
 
 
-if __name__ == '__main__':
+def test_ai_response():
+    import aicontrol.openai.gpt
+
+    """
+    Test the AI response.
+    """
+    input_text = "Your input text goes here"
+    response = aicontrol.openai.gpt.ai_response(input_text)
+    print(response)
+
+
+if __name__ == "__main__":
     main()
+    # test_ai_response()
