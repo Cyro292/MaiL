@@ -1,0 +1,2 @@
+# MaiL
+Frontend Email Copilot
