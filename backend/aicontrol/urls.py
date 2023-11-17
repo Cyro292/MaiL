@@ -1,7 +1,12 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework import routers
 from . import views
 
+router = routers.DefaultRouter()
+
 urlpatterns = [
-    path("", views.index, name="index"),
-    path("openai/", views.openai, name="openai"),
+    path("api/", include((router.urls, "aicontrol"), namespace="apirouter")),
+    path("api/openai/", views.OpenAiView.as_view(), name="openai"),
 ]
+
+urlpatterns += router.urls
